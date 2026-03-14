@@ -3,378 +3,378 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 import re
 
-class FinancialCalculator:
+class KalkulatorKeuangan:
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("Financial Calculator")
+        self.root.title("Kalkulator Keuangan")
         self.root.geometry("600x500")
         self.setup_ui()
     
     def setup_ui(self):
-        # Create notebook (tabs)
+        # Membuat notebook (tab)
         self.notebook = ttk.Notebook(self.root)
         
-        # Create tabs
-        self.annuity_tab = ttk.Frame(self.notebook)
-        self.mortgage_tab = ttk.Frame(self.notebook)
-        self.retirement_tab = ttk.Frame(self.notebook)
-        self.doubling_time_tab = ttk.Frame(self.notebook)
-        self.logarithmic_tab = ttk.Frame(self.notebook)
-        self.scientific_notation_tab = ttk.Frame(self.notebook)
+        # Membuat tab
+        self.tab_anuitas = ttk.Frame(self.notebook)
+        self.tab_kpr = ttk.Frame(self.notebook)
+        self.tab_pensiun = ttk.Frame(self.notebook)
+        self.tab_waktu_lipat = ttk.Frame(self.notebook)
+        self.tab_logaritma = ttk.Frame(self.notebook)
+        self.tab_notasi_ilmiah = ttk.Frame(self.notebook)
         
-        # Add tabs to notebook
-        self.notebook.add(self.annuity_tab, text="Annuity Calculator")
-        self.notebook.add(self.mortgage_tab, text="Mortgage Calculator")
-        self.notebook.add(self.retirement_tab, text="Retirement Calculator")
-        self.notebook.add(self.doubling_time_tab, text="Doubling Time")
-        self.notebook.add(self.logarithmic_tab, text="Logarithmic Equations")
-        self.notebook.add(self.scientific_notation_tab, text="Scientific Notation")
+        # Menambahkan tab ke notebook
+        self.notebook.add(self.tab_anuitas, text="Kalkulator Anuitas")
+        self.notebook.add(self.tab_kpr, text="Kalkulator KPR")
+        self.notebook.add(self.tab_pensiun, text="Kalkulator Pensiun")
+        self.notebook.add(self.tab_waktu_lipat, text="Waktu Pelipatgandaan")
+        self.notebook.add(self.tab_logaritma, text="Persamaan Logaritma")
+        self.notebook.add(self.tab_notasi_ilmiah, text="Notasi Ilmiah")
         
         self.notebook.pack(expand=True, fill='both', padx=10, pady=10)
         
-        # Setup each tab
-        self.setup_annuity_tab()
-        self.setup_mortgage_tab()
-        self.setup_retirement_tab()
-        self.setup_doubling_time_tab()
-        self.setup_logarithmic_tab()
-        self.setup_scientific_notation_tab()
+        # Setup setiap tab
+        self.setup_tab_anuitas()
+        self.setup_tab_kpr()
+        self.setup_tab_pensiun()
+        self.setup_tab_waktu_lipat()
+        self.setup_tab_logaritma()
+        self.setup_tab_notasi_ilmiah()
         
-        # Output area
-        self.output_frame = ttk.Frame(self.root)
-        self.output_frame.pack(fill='x', padx=10, pady=5)
+        # Area output
+        self.frame_output = ttk.Frame(self.root)
+        self.frame_output.pack(fill='x', padx=10, pady=5)
         
-        self.output_text = tk.Text(self.output_frame, height=4, width=70)
-        self.output_scroll = ttk.Scrollbar(self.output_frame, orient='vertical', command=self.output_text.yview)
-        self.output_text.configure(yscrollcommand=self.output_scroll.set)
+        self.teks_output = tk.Text(self.frame_output, height=4, width=70)
+        self.gulir_output = ttk.Scrollbar(self.frame_output, orient='vertical', command=self.teks_output.yview)
+        self.teks_output.configure(yscrollcommand=self.gulir_output.set)
         
-        self.output_text.pack(side='left', fill='both', expand=True)
-        self.output_scroll.pack(side='right', fill='y')
+        self.teks_output.pack(side='left', fill='both', expand=True)
+        self.gulir_output.pack(side='right', fill='y')
     
-    def setup_annuity_tab(self):
-        # Annuity Calculator widgets
-        ttk.Label(self.annuity_tab, text="Annuity Calculator", font=('Arial', 12, 'bold')).pack(pady=10)
+    def setup_tab_anuitas(self):
+        # Widget Kalkulator Anuitas
+        ttk.Label(self.tab_anuitas, text="Kalkulator Anuitas", font=('Arial', 12, 'bold')).pack(pady=10)
         
-        # PV input
-        pv_frame = ttk.Frame(self.annuity_tab)
-        pv_frame.pack(fill='x', padx=20, pady=5)
-        ttk.Label(pv_frame, text="PV:").pack(side='left')
-        self.pv_var = tk.StringVar(value="0")
-        self.pv_entry = ttk.Entry(pv_frame, textvariable=self.pv_var, width=15)
-        self.pv_entry.pack(side='right')
+        # Input PV
+        frame_pv = ttk.Frame(self.tab_anuitas)
+        frame_pv.pack(fill='x', padx=20, pady=5)
+        ttk.Label(frame_pv, text="Nilai Sekarang (PV):").pack(side='left')
+        self.var_pv = tk.StringVar(value="0")
+        self.entry_pv = ttk.Entry(frame_pv, textvariable=self.var_pv, width=15)
+        self.entry_pv.pack(side='right')
         
-        # PMT input
-        pmt_frame = ttk.Frame(self.annuity_tab)
-        pmt_frame.pack(fill='x', padx=20, pady=5)
-        ttk.Label(pmt_frame, text="PMT:").pack(side='left')
-        self.pmt_var = tk.StringVar(value="0")
-        self.pmt_entry = ttk.Entry(pmt_frame, textvariable=self.pmt_var, width=15)
-        self.pmt_entry.pack(side='right')
+        # Input PMT
+        frame_pmt = ttk.Frame(self.tab_anuitas)
+        frame_pmt.pack(fill='x', padx=20, pady=5)
+        ttk.Label(frame_pmt, text="Pembayaran Berkala (PMT):").pack(side='left')
+        self.var_pmt = tk.StringVar(value="0")
+        self.entry_pmt = ttk.Entry(frame_pmt, textvariable=self.var_pmt, width=15)
+        self.entry_pmt.pack(side='right')
         
-        # Rate input
-        rate_frame = ttk.Frame(self.annuity_tab)
-        rate_frame.pack(fill='x', padx=20, pady=5)
-        ttk.Label(rate_frame, text="Rate (%):").pack(side='left')
-        self.rate_var = tk.StringVar(value="5")
-        self.rate_entry = ttk.Entry(rate_frame, textvariable=self.rate_var, width=15)
-        self.rate_entry.pack(side='right')
+        # Input Suku Bunga
+        frame_bunga = ttk.Frame(self.tab_anuitas)
+        frame_bunga.pack(fill='x', padx=20, pady=5)
+        ttk.Label(frame_bunga, text="Suku Bunga (%):").pack(side='left')
+        self.var_bunga = tk.StringVar(value="5")
+        self.entry_bunga = ttk.Entry(frame_bunga, textvariable=self.var_bunga, width=15)
+        self.entry_bunga.pack(side='right')
         
-        # Periods input
-        periods_frame = ttk.Frame(self.annuity_tab)
-        periods_frame.pack(fill='x', padx=20, pady=5)
-        ttk.Label(periods_frame, text="Periods:").pack(side='left')
-        self.periods_var = tk.StringVar(value="12")
-        self.periods_entry = ttk.Entry(periods_frame, textvariable=self.periods_var, width=15)
-        self.periods_entry.pack(side='right')
+        # Input Periode
+        frame_periode = ttk.Frame(self.tab_anuitas)
+        frame_periode.pack(fill='x', padx=20, pady=5)
+        ttk.Label(frame_periode, text="Periode (bulan):").pack(side='left')
+        self.var_periode = tk.StringVar(value="12")
+        self.entry_periode = ttk.Entry(frame_periode, textvariable=self.var_periode, width=15)
+        self.entry_periode.pack(side='right')
         
-        # Compounding dropdown
-        compounding_frame = ttk.Frame(self.annuity_tab)
-        compounding_frame.pack(fill='x', padx=20, pady=5)
-        ttk.Label(compounding_frame, text="Compounding:").pack(side='left')
-        self.compounding_var = tk.StringVar(value="monthly")
-        self.compounding_combo = ttk.Combobox(compounding_frame, textvariable=self.compounding_var, 
-                                            values=['monthly', 'continuous'], width=12, state='readonly')
-        self.compounding_combo.pack(side='right')
+        # Dropdown Pemajemukan
+        frame_pemajemukan = ttk.Frame(self.tab_anuitas)
+        frame_pemajemukan.pack(fill='x', padx=20, pady=5)
+        ttk.Label(frame_pemajemukan, text="Pemajemukan:").pack(side='left')
+        self.var_pemajemukan = tk.StringVar(value="bulanan")
+        self.combo_pemajemukan = ttk.Combobox(frame_pemajemukan, textvariable=self.var_pemajemukan, 
+                                            values=['bulanan', 'kontinu'], width=12, state='readonly')
+        self.combo_pemajemukan.pack(side='right')
         
-        # Calculate button and result
-        ttk.Button(self.annuity_tab, text="Calculate FV", command=self.calculate_fv).pack(pady=10)
+        # Tombol hitung dan hasil
+        ttk.Button(self.tab_anuitas, text="Hitung Nilai Masa Depan", command=self.hitung_nilai_masa_depan).pack(pady=10)
         
-        self.fv_result_var = tk.StringVar(value="Future Value: $0.00")
-        ttk.Label(self.annuity_tab, textvariable=self.fv_result_var, font=('Arial', 10)).pack(pady=5)
+        self.var_hasil_fv = tk.StringVar(value="Nilai Masa Depan: Rp0,00")
+        ttk.Label(self.tab_anuitas, textvariable=self.var_hasil_fv, font=('Arial', 10)).pack(pady=5)
     
-    def setup_mortgage_tab(self):
-        ttk.Label(self.mortgage_tab, text="Mortgage Calculator", font=('Arial', 12, 'bold')).pack(pady=10)
+    def setup_tab_kpr(self):
+        ttk.Label(self.tab_kpr, text="Kalkulator KPR", font=('Arial', 12, 'bold')).pack(pady=10)
         
-        # Principal input
-        principal_frame = ttk.Frame(self.mortgage_tab)
-        principal_frame.pack(fill='x', padx=20, pady=5)
-        ttk.Label(principal_frame, text="Loan Amount:").pack(side='left')
-        self.principal_var = tk.StringVar(value="200000")
-        self.principal_entry = ttk.Entry(principal_frame, textvariable=self.principal_var, width=15)
-        self.principal_entry.pack(side='right')
+        # Input Pokok Pinjaman
+        frame_pokok = ttk.Frame(self.tab_kpr)
+        frame_pokok.pack(fill='x', padx=20, pady=5)
+        ttk.Label(frame_pokok, text="Jumlah Pinjaman:").pack(side='left')
+        self.var_pokok = tk.StringVar(value="200000000")
+        self.entry_pokok = ttk.Entry(frame_pokok, textvariable=self.var_pokok, width=15)
+        self.entry_pokok.pack(side='right')
         
-        # Rate input
-        mortgage_rate_frame = ttk.Frame(self.mortgage_tab)
-        mortgage_rate_frame.pack(fill='x', padx=20, pady=5)
-        ttk.Label(mortgage_rate_frame, text="Rate (%):").pack(side='left')
-        self.mortgage_rate_var = tk.StringVar(value="4.5")
-        self.mortgage_rate_entry = ttk.Entry(mortgage_rate_frame, textvariable=self.mortgage_rate_var, width=15)
-        self.mortgage_rate_entry.pack(side='right')
+        # Input Suku Bunga
+        frame_bunga_kpr = ttk.Frame(self.tab_kpr)
+        frame_bunga_kpr.pack(fill='x', padx=20, pady=5)
+        ttk.Label(frame_bunga_kpr, text="Suku Bunga (%):").pack(side='left')
+        self.var_bunga_kpr = tk.StringVar(value="4.5")
+        self.entry_bunga_kpr = ttk.Entry(frame_bunga_kpr, textvariable=self.var_bunga_kpr, width=15)
+        self.entry_bunga_kpr.pack(side='right')
         
-        # Loan term input
-        loan_term_frame = ttk.Frame(self.mortgage_tab)
-        loan_term_frame.pack(fill='x', padx=20, pady=5)
-        ttk.Label(loan_term_frame, text="Years:").pack(side='left')
-        self.loan_term_var = tk.StringVar(value="30")
-        self.loan_term_entry = ttk.Entry(loan_term_frame, textvariable=self.loan_term_var, width=15)
-        self.loan_term_entry.pack(side='right')
+        # Input Jangka Waktu
+        frame_jangka = ttk.Frame(self.tab_kpr)
+        frame_jangka.pack(fill='x', padx=20, pady=5)
+        ttk.Label(frame_jangka, text="Tahun:").pack(side='left')
+        self.var_jangka = tk.StringVar(value="30")
+        self.entry_jangka = ttk.Entry(frame_jangka, textvariable=self.var_jangka, width=15)
+        self.entry_jangka.pack(side='right')
         
-        # Calculate button and result
-        ttk.Button(self.mortgage_tab, text="Calculate Payment", command=self.calculate_mortgage).pack(pady=10)
+        # Tombol hitung dan hasil
+        ttk.Button(self.tab_kpr, text="Hitung Angsuran", command=self.hitung_kpr).pack(pady=10)
         
-        self.payment_result_var = tk.StringVar(value="Monthly Payment: $0.00")
-        ttk.Label(self.mortgage_tab, textvariable=self.payment_result_var, font=('Arial', 10)).pack(pady=5)
+        self.var_hasil_angsuran = tk.StringVar(value="Angsuran Bulanan: Rp0,00")
+        ttk.Label(self.tab_kpr, textvariable=self.var_hasil_angsuran, font=('Arial', 10)).pack(pady=5)
     
-    def setup_retirement_tab(self):
-        ttk.Label(self.retirement_tab, text="Retirement Calculator", font=('Arial', 12, 'bold')).pack(pady=10)
+    def setup_tab_pensiun(self):
+        ttk.Label(self.tab_pensiun, text="Kalkulator Pensiun", font=('Arial', 12, 'bold')).pack(pady=10)
         
-        # Initial investment
-        initial_frame = ttk.Frame(self.retirement_tab)
-        initial_frame.pack(fill='x', padx=20, pady=5)
-        ttk.Label(initial_frame, text="Initial Investment:").pack(side='left')
-        self.initial_investment_var = tk.StringVar(value="10000")
-        self.initial_investment_entry = ttk.Entry(initial_frame, textvariable=self.initial_investment_var, width=15)
-        self.initial_investment_entry.pack(side='right')
+        # Investasi Awal
+        frame_investasi_awal = ttk.Frame(self.tab_pensiun)
+        frame_investasi_awal.pack(fill='x', padx=20, pady=5)
+        ttk.Label(frame_investasi_awal, text="Investasi Awal:").pack(side='left')
+        self.var_investasi_awal = tk.StringVar(value="10000000")
+        self.entry_investasi_awal = ttk.Entry(frame_investasi_awal, textvariable=self.var_investasi_awal, width=15)
+        self.entry_investasi_awal.pack(side='right')
         
-        # Monthly contribution
-        monthly_frame = ttk.Frame(self.retirement_tab)
-        monthly_frame.pack(fill='x', padx=20, pady=5)
-        ttk.Label(monthly_frame, text="Monthly Contribution:").pack(side='left')
-        self.monthly_contribution_var = tk.StringVar(value="500")
-        self.monthly_contribution_entry = ttk.Entry(monthly_frame, textvariable=self.monthly_contribution_var, width=15)
-        self.monthly_contribution_entry.pack(side='right')
+        # Kontribusi Bulanan
+        frame_kontribusi = ttk.Frame(self.tab_pensiun)
+        frame_kontribusi.pack(fill='x', padx=20, pady=5)
+        ttk.Label(frame_kontribusi, text="Kontribusi Bulanan:").pack(side='left')
+        self.var_kontribusi = tk.StringVar(value="500000")
+        self.entry_kontribusi = ttk.Entry(frame_kontribusi, textvariable=self.var_kontribusi, width=15)
+        self.entry_kontribusi.pack(side='right')
         
-        # Rate input
-        retirement_rate_frame = ttk.Frame(self.retirement_tab)
-        retirement_rate_frame.pack(fill='x', padx=20, pady=5)
-        ttk.Label(retirement_rate_frame, text="Return (%):").pack(side='left')
-        self.retirement_rate_var = tk.StringVar(value="7")
-        self.retirement_rate_entry = ttk.Entry(retirement_rate_frame, textvariable=self.retirement_rate_var, width=15)
-        self.retirement_rate_entry.pack(side='right')
+        # Input Tingkat Pengembalian
+        frame_imbal_hasil = ttk.Frame(self.tab_pensiun)
+        frame_imbal_hasil.pack(fill='x', padx=20, pady=5)
+        ttk.Label(frame_imbal_hasil, text="Tingkat Pengembalian (%):").pack(side='left')
+        self.var_imbal_hasil = tk.StringVar(value="7")
+        self.entry_imbal_hasil = ttk.Entry(frame_imbal_hasil, textvariable=self.var_imbal_hasil, width=15)
+        self.entry_imbal_hasil.pack(side='right')
         
-        # Years input
-        years_frame = ttk.Frame(self.retirement_tab)
-        years_frame.pack(fill='x', padx=20, pady=5)
-        ttk.Label(years_frame, text="Years:").pack(side='left')
-        self.retirement_years_var = tk.StringVar(value="30")
-        self.retirement_years_entry = ttk.Entry(years_frame, textvariable=self.retirement_years_var, width=15)
-        self.retirement_years_entry.pack(side='right')
+        # Input Tahun
+        frame_tahun_pensiun = ttk.Frame(self.tab_pensiun)
+        frame_tahun_pensiun.pack(fill='x', padx=20, pady=5)
+        ttk.Label(frame_tahun_pensiun, text="Tahun:").pack(side='left')
+        self.var_tahun_pensiun = tk.StringVar(value="30")
+        self.entry_tahun_pensiun = ttk.Entry(frame_tahun_pensiun, textvariable=self.var_tahun_pensiun, width=15)
+        self.entry_tahun_pensiun.pack(side='right')
         
-        # Calculate button and result
-        ttk.Button(self.retirement_tab, text="Calculate Balance", command=self.calculate_retirement).pack(pady=10)
+        # Tombol hitung dan hasil
+        ttk.Button(self.tab_pensiun, text="Hitung Saldo", command=self.hitung_pensiun).pack(pady=10)
         
-        self.retirement_balance_var = tk.StringVar(value="Future Balance: $0.00")
-        ttk.Label(self.retirement_tab, textvariable=self.retirement_balance_var, font=('Arial', 10)).pack(pady=5)
+        self.var_saldo_pensiun = tk.StringVar(value="Saldo Masa Depan: Rp0,00")
+        ttk.Label(self.tab_pensiun, textvariable=self.var_saldo_pensiun, font=('Arial', 10)).pack(pady=5)
     
-    def setup_doubling_time_tab(self):
-        ttk.Label(self.doubling_time_tab, text="Doubling Time Calculator", font=('Arial', 12, 'bold')).pack(pady=10)
+    def setup_tab_waktu_lipat(self):
+        ttk.Label(self.tab_waktu_lipat, text="Kalkulator Waktu Pelipatgandaan", font=('Arial', 12, 'bold')).pack(pady=10)
         
-        # Rate input
-        rate_frame = ttk.Frame(self.doubling_time_tab)
-        rate_frame.pack(fill='x', padx=20, pady=20)
-        ttk.Label(rate_frame, text="Rate (%):").pack(side='left')
-        self.doubling_rate_var = tk.StringVar(value="7")
-        self.doubling_rate_entry = ttk.Entry(rate_frame, textvariable=self.doubling_rate_var, width=15)
-        self.doubling_rate_entry.pack(side='right')
+        # Input Suku Bunga
+        frame_bunga_lipat = ttk.Frame(self.tab_waktu_lipat)
+        frame_bunga_lipat.pack(fill='x', padx=20, pady=20)
+        ttk.Label(frame_bunga_lipat, text="Suku Bunga (%):").pack(side='left')
+        self.var_bunga_lipat = tk.StringVar(value="7")
+        self.entry_bunga_lipat = ttk.Entry(frame_bunga_lipat, textvariable=self.var_bunga_lipat, width=15)
+        self.entry_bunga_lipat.pack(side='right')
         
-        # Calculate button and result
-        ttk.Button(self.doubling_time_tab, text="Calculate", command=self.calculate_doubling_time).pack(pady=10)
+        # Tombol hitung dan hasil
+        ttk.Button(self.tab_waktu_lipat, text="Hitung", command=self.hitung_waktu_lipat).pack(pady=10)
         
-        self.doubling_time_result_var = tk.StringVar(value="Time to Double: 0 years")
-        ttk.Label(self.doubling_time_tab, textvariable=self.doubling_time_result_var, font=('Arial', 10)).pack(pady=5)
+        self.var_hasil_waktu_lipat = tk.StringVar(value="Waktu untuk Melipatgandakan: 0 tahun")
+        ttk.Label(self.tab_waktu_lipat, textvariable=self.var_hasil_waktu_lipat, font=('Arial', 10)).pack(pady=5)
     
-    def setup_logarithmic_tab(self):
-        ttk.Label(self.logarithmic_tab, text="Logarithmic Equation Solver", font=('Arial', 12, 'bold')).pack(pady=10)
+    def setup_tab_logaritma(self):
+        ttk.Label(self.tab_logaritma, text="Pemecah Persamaan Logaritma", font=('Arial', 12, 'bold')).pack(pady=10)
         
-        # Base input
-        base_frame = ttk.Frame(self.logarithmic_tab)
-        base_frame.pack(fill='x', padx=20, pady=5)
-        ttk.Label(base_frame, text="Base:").pack(side='left')
-        self.log_base_var = tk.StringVar(value="10")
-        self.log_base_entry = ttk.Entry(base_frame, textvariable=self.log_base_var, width=15)
-        self.log_base_entry.pack(side='right')
+        # Input Basis
+        frame_basis = ttk.Frame(self.tab_logaritma)
+        frame_basis.pack(fill='x', padx=20, pady=5)
+        ttk.Label(frame_basis, text="Basis:").pack(side='left')
+        self.var_basis_log = tk.StringVar(value="10")
+        self.entry_basis_log = ttk.Entry(frame_basis, textvariable=self.var_basis_log, width=15)
+        self.entry_basis_log.pack(side='right')
         
-        # Argument input
-        argument_frame = ttk.Frame(self.logarithmic_tab)
-        argument_frame.pack(fill='x', padx=20, pady=5)
-        ttk.Label(argument_frame, text="Argument:").pack(side='left')
-        self.log_argument_var = tk.StringVar(value="100")
-        self.log_argument_entry = ttk.Entry(argument_frame, textvariable=self.log_argument_var, width=15)
-        self.log_argument_entry.pack(side='right')
+        # Input Argumen
+        frame_argumen = ttk.Frame(self.tab_logaritma)
+        frame_argumen.pack(fill='x', padx=20, pady=5)
+        ttk.Label(frame_argumen, text="Argumen:").pack(side='left')
+        self.var_argumen_log = tk.StringVar(value="100")
+        self.entry_argumen_log = ttk.Entry(frame_argumen, textvariable=self.var_argumen_log, width=15)
+        self.entry_argumen_log.pack(side='right')
         
-        # Calculate button and result
-        ttk.Button(self.logarithmic_tab, text="Calculate", command=self.calculate_logarithm).pack(pady=10)
+        # Tombol hitung dan hasil
+        ttk.Button(self.tab_logaritma, text="Hitung", command=self.hitung_logaritma).pack(pady=10)
         
-        self.log_result_var = tk.StringVar(value="Result: 0")
-        ttk.Label(self.logarithmic_tab, textvariable=self.log_result_var, font=('Arial', 10)).pack(pady=5)
+        self.var_hasil_log = tk.StringVar(value="Hasil: 0")
+        ttk.Label(self.tab_logaritma, textvariable=self.var_hasil_log, font=('Arial', 10)).pack(pady=5)
     
-    def setup_scientific_notation_tab(self):
-        ttk.Label(self.scientific_notation_tab, text="Scientific Notation Converter", font=('Arial', 12, 'bold')).pack(pady=10)
+    def setup_tab_notasi_ilmiah(self):
+        ttk.Label(self.tab_notasi_ilmiah, text="Konverter Notasi Ilmiah", font=('Arial', 12, 'bold')).pack(pady=10)
         
-        # Standard number input
-        standard_frame = ttk.Frame(self.scientific_notation_tab)
-        standard_frame.pack(fill='x', padx=20, pady=10)
-        ttk.Label(standard_frame, text="Standard Number:").pack(side='left')
-        self.standard_number_var = tk.StringVar(value="12345")
-        self.standard_number_entry = ttk.Entry(standard_frame, textvariable=self.standard_number_var, width=20)
-        self.standard_number_entry.pack(side='right')
+        # Input Angka Standar
+        frame_standar = ttk.Frame(self.tab_notasi_ilmiah)
+        frame_standar.pack(fill='x', padx=20, pady=10)
+        ttk.Label(frame_standar, text="Angka Standar:").pack(side='left')
+        self.var_angka_standar = tk.StringVar(value="12345")
+        self.entry_angka_standar = ttk.Entry(frame_standar, textvariable=self.var_angka_standar, width=20)
+        self.entry_angka_standar.pack(side='right')
         
-        # Buttons frame
-        buttons_frame = ttk.Frame(self.scientific_notation_tab)
-        buttons_frame.pack(fill='x', padx=20, pady=10)
-        ttk.Button(buttons_frame, text="→ Scientific", command=self.to_scientific).pack(side='left', padx=10)
-        ttk.Button(buttons_frame, text="← Standard", command=self.from_scientific).pack(side='right', padx=10)
+        # Frame tombol
+        frame_tombol = ttk.Frame(self.tab_notasi_ilmiah)
+        frame_tombol.pack(fill='x', padx=20, pady=10)
+        ttk.Button(frame_tombol, text="→ Notasi Ilmiah", command=self.ke_notasi_ilmiah).pack(side='left', padx=10)
+        ttk.Button(frame_tombol, text="← Angka Standar", command=self.dari_notasi_ilmiah).pack(side='right', padx=10)
         
-        # Scientific notation input
-        scientific_frame = ttk.Frame(self.scientific_notation_tab)
-        scientific_frame.pack(fill='x', padx=20, pady=10)
-        ttk.Label(scientific_frame, text="Scientific Notation:").pack(side='left')
-        self.scientific_number_var = tk.StringVar()
-        self.scientific_number_entry = ttk.Entry(scientific_frame, textvariable=self.scientific_number_var, width=20)
-        self.scientific_number_entry.pack(side='right')
+        # Input Notasi Ilmiah
+        frame_ilmiah = ttk.Frame(self.tab_notasi_ilmiah)
+        frame_ilmiah.pack(fill='x', padx=20, pady=10)
+        ttk.Label(frame_ilmiah, text="Notasi Ilmiah:").pack(side='left')
+        self.var_notasi_ilmiah = tk.StringVar()
+        self.entry_notasi_ilmiah = ttk.Entry(frame_ilmiah, textvariable=self.var_notasi_ilmiah, width=20)
+        self.entry_notasi_ilmiah.pack(side='right')
     
-    def log_output(self, message):
-        """Helper method to log messages to output area"""
-        self.output_text.insert('end', message + '\n')
-        self.output_text.see('end')
+    def catat_output(self, pesan):
+        """Method pembantu untuk mencatat pesan ke area output"""
+        self.teks_output.insert('end', pesan + '\n')
+        self.teks_output.see('end')
     
-    def clear_output(self):
-        """Clear output area"""
-        self.output_text.delete('1.0', 'end')
+    def bersihkan_output(self):
+        """Membersihkan area output"""
+        self.teks_output.delete('1.0', 'end')
     
-    def calculate_fv(self):
+    def hitung_nilai_masa_depan(self):
         try:
-            pv = float(self.pv_var.get())
-            pmt = float(self.pmt_var.get())
-            rate = float(self.rate_var.get()) / 100
-            n = int(self.periods_var.get())
-            compounding = self.compounding_var.get()
+            pv = float(self.var_pv.get())
+            pmt = float(self.var_pmt.get())
+            bunga = float(self.var_bunga.get()) / 100
+            n = int(self.var_periode.get())
+            pemajemukan = self.var_pemajemukan.get()
 
-            if compounding == "monthly":
-                r = rate / 12
+            if pemajemukan == "bulanan":
+                r = bunga / 12
                 fv = pv * (1 + r)**n + pmt * ((1 + r)**n - 1) / r
-            else:  # continuous
-                fv = pv * math.exp(rate * n/12) + pmt * (math.exp(rate * n/12) - 1) / (math.exp(rate/12) - 1)
+            else:  # kontinu
+                fv = pv * math.exp(bunga * n/12) + pmt * (math.exp(bunga * n/12) - 1) / (math.exp(bunga/12) - 1)
 
-            self.fv_result_var.set(f'Future Value: ${fv:,.2f}')
-            self.log_output(f"Annuity FV calculated: ${fv:,.2f}")
+            self.var_hasil_fv.set(f'Nilai Masa Depan: Rp{fv:,.2f}')
+            self.catat_output(f"Nilai masa depan anuitas dihitung: Rp{fv:,.2f}")
             
         except Exception as e:
-            messagebox.showerror("Error", f"Error calculating future value: {str(e)}")
+            messagebox.showerror("Error", f"Kesalahan menghitung nilai masa depan: {str(e)}")
     
-    def calculate_mortgage(self):
+    def hitung_kpr(self):
         try:
-            P = float(self.principal_var.get())
-            r = float(self.mortgage_rate_var.get()) / 100 / 12
-            n = int(self.loan_term_var.get()) * 12
+            P = float(self.var_pokok.get())
+            r = float(self.var_bunga_kpr.get()) / 100 / 12
+            n = int(self.var_jangka.get()) * 12
 
-            if r == 0:  # Handle 0% interest case
-                monthly_payment = P / n
+            if r == 0:  # Menangani kasus bunga 0%
+                angsuran_bulanan = P / n
             else:
-                monthly_payment = P * (r * (1 + r)**n) / ((1 + r)**n - 1)
+                angsuran_bulanan = P * (r * (1 + r)**n) / ((1 + r)**n - 1)
 
-            self.payment_result_var.set(f'Monthly Payment: ${monthly_payment:,.2f}')
-            self.log_output(f"Mortgage payment calculated: ${monthly_payment:,.2f}")
+            self.var_hasil_angsuran.set(f'Angsuran Bulanan: Rp{angsuran_bulanan:,.2f}')
+            self.catat_output(f"Angsuran KPR dihitung: Rp{angsuran_bulanan:,.2f}")
             
         except Exception as e:
-            messagebox.showerror("Error", f"Error calculating mortgage: {str(e)}")
+            messagebox.showerror("Error", f"Kesalahan menghitung KPR: {str(e)}")
     
-    def calculate_retirement(self):
+    def hitung_pensiun(self):
         try:
-            P = float(self.initial_investment_var.get())
-            C = float(self.monthly_contribution_var.get())
-            r = float(self.retirement_rate_var.get()) / 100 / 12
-            n = int(self.retirement_years_var.get()) * 12
+            P = float(self.var_investasi_awal.get())
+            C = float(self.var_kontribusi.get())
+            r = float(self.var_imbal_hasil.get()) / 100 / 12
+            n = int(self.var_tahun_pensiun.get()) * 12
 
-            if r == 0:  # Handle 0% interest case
+            if r == 0:  # Menangani kasus bunga 0%
                 FV = P + C * n
             else:
                 FV = P * (1 + r)**n + C * ((1 + r)**n - 1) / r
 
-            self.retirement_balance_var.set(f'Future Balance: ${FV:,.2f}')
-            self.log_output(f"Retirement balance calculated: ${FV:,.2f}")
+            self.var_saldo_pensiun.set(f'Saldo Masa Depan: Rp{FV:,.2f}')
+            self.catat_output(f"Saldo pensiun dihitung: Rp{FV:,.2f}")
             
         except Exception as e:
-            messagebox.showerror("Error", f"Error calculating retirement balance: {str(e)}")
+            messagebox.showerror("Error", f"Kesalahan menghitung saldo pensiun: {str(e)}")
     
-    def calculate_doubling_time(self):
+    def hitung_waktu_lipat(self):
         try:
-            rate = float(self.doubling_rate_var.get()) / 100
-            if rate <= 0:
-                messagebox.showwarning("Warning", "Rate must be positive")
+            bunga = float(self.var_bunga_lipat.get()) / 100
+            if bunga <= 0:
+                messagebox.showwarning("Peringatan", "Suku bunga harus positif")
                 return
 
-            # Rule of 72 approximation
-            time = 72 / (rate * 100)
-            self.doubling_time_result_var.set(f'Time to Double: {time:.2f} years')
-            self.log_output(f"Doubling time calculated: {time:.2f} years at {rate*100}% rate")
+            # Aturan 72 sebagai pendekatan
+            waktu = 72 / (bunga * 100)
+            self.var_hasil_waktu_lipat.set(f'Waktu untuk Melipatgandakan: {waktu:.2f} tahun')
+            self.catat_output(f"Waktu pelipatgandaan dihitung: {waktu:.2f} tahun dengan suku bunga {bunga*100}%")
             
         except Exception as e:
-            messagebox.showerror("Error", f"Error calculating doubling time: {str(e)}")
+            messagebox.showerror("Error", f"Kesalahan menghitung waktu pelipatgandaan: {str(e)}")
     
-    def calculate_logarithm(self):
+    def hitung_logaritma(self):
         try:
-            base = float(self.log_base_var.get())
-            argument = float(self.log_argument_var.get())
+            basis = float(self.var_basis_log.get())
+            argumen = float(self.var_argumen_log.get())
 
-            if base <= 0 or base == 1:
-                messagebox.showwarning("Warning", "Base must be positive and not equal to 1")
+            if basis <= 0 or basis == 1:
+                messagebox.showwarning("Peringatan", "Basis harus positif dan tidak sama dengan 1")
                 return
-            if argument <= 0:
-                messagebox.showwarning("Warning", "Argument must be positive")
+            if argumen <= 0:
+                messagebox.showwarning("Peringatan", "Argumen harus positif")
                 return
 
-            result = math.log(argument, base)
-            self.log_result_var.set(f'Result: {result:.4f}')
-            self.log_output(f"Log base {base} of {argument} = {result:.4f}")
+            hasil = math.log(argumen, basis)
+            self.var_hasil_log.set(f'Hasil: {hasil:.4f}')
+            self.catat_output(f"Log basis {basis} dari {argumen} = {hasil:.4f}")
             
         except Exception as e:
-            messagebox.showerror("Error", f"Error calculating logarithm: {str(e)}")
+            messagebox.showerror("Error", f"Kesalahan menghitung logaritma: {str(e)}")
     
-    def to_scientific(self):
+    def ke_notasi_ilmiah(self):
         try:
-            number = float(self.standard_number_var.get())
-            scientific = f"{number:.4e}"
-            self.scientific_number_var.set(scientific)
-            self.log_output(f"Converted {number} to scientific notation: {scientific}")
+            angka = float(self.var_angka_standar.get())
+            notasi_ilmiah = f"{angka:.4e}"
+            self.var_notasi_ilmiah.set(notasi_ilmiah)
+            self.catat_output(f"Mengkonversi {angka} ke notasi ilmiah: {notasi_ilmiah}")
         except ValueError:
-            messagebox.showerror("Error", "Please enter a valid number")
+            messagebox.showerror("Error", "Masukkan angka yang valid")
     
-    def from_scientific(self):
+    def dari_notasi_ilmiah(self):
         try:
-            # Handle scientific notation (e.g., 1.23e4 or 1.23E4)
-            sci_num = self.scientific_number_var.get().lower().replace('×10^', 'e').replace('·10^', 'e')
-            number = float(sci_num)
-            self.standard_number_var.set(f"{number:,}")
-            self.log_output(f"Converted {sci_num} to standard notation: {number:,}")
+            # Menangani notasi ilmiah (misalnya, 1.23e4 atau 1.23E4)
+            notasi_ilmiah = self.var_notasi_ilmiah.get().lower().replace('×10^', 'e').replace('·10^', 'e')
+            angka = float(notasi_ilmiah)
+            self.var_angka_standar.set(f"{angka:,}")
+            self.catat_output(f"Mengkonversi {notasi_ilmiah} ke notasi standar: {angka:,}")
         except ValueError:
-            messagebox.showerror("Error", "Please enter valid scientific notation (e.g., 1.23e4)")
+            messagebox.showerror("Error", "Masukkan notasi ilmiah yang valid (misalnya, 1.23e4)")
     
-    def run(self):
+    def jalankan(self):
         self.root.mainloop()
 
-# Run the calculator
+# Menjalankan kalkulator
 if __name__ == "__main__":
-    print("💰 Financial Calculator")
+    print("💰 Kalkulator Keuangan")
     print("=========================================")
-    print("A comprehensive financial calculator with multiple tools:")
-    print("• Annuity Calculator")
-    print("• Mortgage Calculator")
-    print("• Retirement Calculator")
-    print("• Doubling Time Calculator")
-    print("• Logarithmic Equation Solver")
-    print("• Scientific Notation Converter")
+    print("Kalkulator keuangan komprehensif dengan berbagai alat:")
+    print("• Kalkulator Anuitas")
+    print("• Kalkulator KPR")
+    print("• Kalkulator Pensiun")
+    print("• Kalkulator Waktu Pelipatgandaan")
+    print("• Pemecah Persamaan Logaritma")
+    print("• Konverter Notasi Ilmiah")
     print()
     
-    calculator = FinancialCalculator()
-    calculator.run()
+    kalkulator = KalkulatorKeuangan()
+    kalkulator.jalankan()
