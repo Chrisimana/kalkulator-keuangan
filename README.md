@@ -9,7 +9,7 @@
 [![FreeCodeCamp](https://img.shields.io/badge/FreeCodeCamp-Project-brightgreen)](https://www.freecodecamp.org/certification/chrisimana/college-algebra-with-python-v8)
 
 
-**Aplikasi Kalkulator Keuangan berbasis GUI untuk membantu perencanaan keuangan pribadi - Project FreeCodeCamp**
+**Aplikasi Kalkulator Keuangan untuk membantu perencanaan keuangan pribadi**
 
 </div>
 
@@ -29,22 +29,16 @@
 - [Struktur Proyek](#-struktur-proyek)
 - [Cara Instalasi](#-cara-instalasi)
 - [Cara Penggunaan](#-cara-penggunaan)
+- [Peran Developer](#-peran-developer)
 - [Pembelajaran dari Proyek](#-pembelajaran-dari-proyek-lessons-learned)
-- [Lisensi](#-lisensi)
 - [Ucapan Terima Kasih](#-ucapan-terima-kasih)
+
 
 ## 🎮 Demo
 
-Karena aplikasi ini berbasis GUI desktop, tidak ada pratinjau langsung secara *online*. Anda dapat menjalankannya secara lokal di komputer Anda dengan mengikuti petunjuk instalasi pada bagian [Cara Instalasi](#-cara-instalasi--setup). Berikut adalah preview dari tampilan awal aplikasi saat dijalankan:
+(Coming Soon)
 
 ## 📸 Tampilan Aplikasi
-
-Aplikasi ini memiliki antarmuka berbasis tab (notebook) dengan 6 tab utama. Berikut adalah gambaran visual dari setiap tab:
-
-### Tampilan Utama
-
-![Screenshot](Screenshot/1.png)
-
 
 ### Tab Kalkulator Anuitas
 
@@ -128,30 +122,7 @@ Proyek ini dibuat untuk memenuhi kebutuhan akan alat bantu perhitungan keuangan 
 - **re (Regular Expression)** - Untuk parsing input notasi ilmiah
 
 
-## 🏗️ Arsitektur / Konsep Sistem
-
-### Struktur Kelas
-
-```mermaid
-classDiagram
-    class KalkulatorKeuangan {
-        -root: tk.Tk
-        -notebook: ttk.Notebook
-        -teks_output: tk.Text
-        +__init__()
-        +setup_ui()
-        +jalankan()
-        +catat_output()
-        +bersihkan_output()
-        +hitung_nilai_masa_depan()
-        +hitung_kpr()
-        +hitung_pensiun()
-        +hitung_waktu_lipat()
-        +hitung_logaritma()
-        +ke_notasi_ilmiah()
-        +dari_notasi_ilmiah()
-    }
-```
+## 🏗️ Arsitektur
 
 ### Alur Kerja Aplikasi
 
@@ -187,10 +158,10 @@ graph TD
 ```
 financial-calculator/
 │
-├── src/                         # Source code utama
-│   └── main.py                  # File utama program kalkulator keuangan
+├── src/
+│   └── main.py
 │
-├── Screenshot/                  # Screenshot tampilan aplikasi
+├── Screenshot/
 │   ├── 1.png
 │   ├── 2.png
 │   ├── 3.png
@@ -198,8 +169,8 @@ financial-calculator/
 │   ├── 5.png
 │   └── 6.png
 │
-├── README.md                    # Dokumentasi proyek
-└── LICENSE.md                   # Lisensi proyek (MIT)
+├── README.md
+└── LICENSE.md
 ```
 
 
@@ -209,9 +180,9 @@ financial-calculator/
 | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | `src/main.py`              | Berisi kode utama program                     |
 | `Screenshot/`              | Folder yang berisi gambar tangkapan layar aplikasi untuk dokumentasi                                          |
-| `Screenshot/1.png – 6.png` | Screenshot tampilan aplikasi |
+| `1.png–6.png` | Tampilan aplikasi |
 | `README.md`                | Dokumentasi utama proyek                     |
-| `LICENSE.md`               | File lisensi proyek (MIT) MIT).                                    |
+| `LICENSE.md`               | File lisensi proyek (MIT).                                    |
 
 
 ## 📥 Cara Instalasi 
@@ -230,18 +201,7 @@ financial-calculator/
    cd kalkulator-keuangan
    ```
 
-2. **Buat Virtual Environment (Opsional)**
-   ```bash
-   # Windows
-   python -m venv venv
-   venv\Scripts\activate
-   
-   # Linux/Mac
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
-
-3. **Jalankan Aplikasi**
+2. **Jalankan Aplikasi**
    ```bash
    python src/main.py
    ```
@@ -381,10 +341,6 @@ Sebagai pengembang tunggal proyek ini, saya bertanggung jawab atas:
 - **Amortization** - Memahami cara kerja amortisasi pinjaman KPR
 - **Rule of 72** - Mempelajari aturan praktis untuk menghitung waktu lipat ganda
 - **Compound Interest** - Memahami perbedaan pemajemukan diskrit dan kontinu
-
-## 📄 Lisensi
-
-Proyek ini dilisensikan di bawah **MIT License** - lihat file [LICENSE](LICENSE) untuk detail.
 
 
 ## 🙏 Ucapan Terima Kasih
